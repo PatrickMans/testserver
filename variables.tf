@@ -17,7 +17,7 @@ variable "password" {}
 
 # generate your own key
 variable "ssh_key_file" {
-    default = "~/.ssh/id_rsa.patrick"
+    default = "~/.ssh/id_rsa.terraform"
 }
 
 ############### adjust as needed ###############
