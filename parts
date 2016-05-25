@@ -1,0 +1,42 @@
+
+resource "openstack_networking_router_interface_v2" "front" {
+  region = "${var.region}"
+  router_id = "${openstack_networking_router_v2.patrick.id}"
+  subnet_id = "${openstack_networking_subnet_v2.front.id}"
+}
+
+resource "openstack_networking_router_interface_v2" "back" {
+  region = "${var.region}"
+  router_id = "${openstack_networking_router_v2.patrick.id}"
+  subnet_id = "${openstack_networking_subnet_v2.front.id}"
+}
+
+resource "openstack_compute_floatingip_v2" "float1" {
+  depends_on = ["openstack_networking_router_interface_v2.frontend"]
+  region = "${var.region}"
+  pool = "${var.pool}"
+}
+
+resource "openstack_compute_floatingip_v2" "float2" {
+  depends_on = ["openstack_networking_router_interface_v2.frontend"]
+  region = "${var.region}"
+  pool = "${var.pool}"
+}
+
+resource "openstack_compute_floatingip_v2" "float3" {
+  depends_on = ["openstack_networking_router_interface_v2.backend"]
+  region = "${var.region}"
+  pool = "${var.pool}"
+}
+
+resource "openstack_compute_floatingip_v2" "float4" {
+  depends_on = ["openstack_networking_router_interface_v2.backend"]
+  region = "${var.region}"
+  pool = "${var.pool}"
+}
+
+resource "openstack_compute_floatingip_v2" "float5" {
+  depends_on = ["openstack_networking_router_interface_v2.backend"]
+  region = "${var.region}"
+  pool = "${var.pool}"
+}

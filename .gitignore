@@ -1,0 +1,6 @@
+
+terraform.tfstate
+
+terraform.tfstate.backup
+
+main.tpl.orig
