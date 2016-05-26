@@ -6,6 +6,11 @@ provider "openstack" {
   auth_url  = "${var.auth_url}"
 }
 
+provider "aws" {
+  region     = "us-east-1"
+  shared_credentials_file  = "${var.aws_credentials_file}"
+}
+
 # Template for appl cloud-init bash
 resource "template_file" "init_pm" {
     template = "${file("init_appl.tpl")}"
@@ -89,4 +94,16 @@ resource "openstack_compute_instance_v2" "pm_server" {
     uuid = "${openstack_networking_network_v2.main.id}"
     fixed_ip_v4 = "10.0.10.100"
   }
+}
+
+resource "aws_route53_zone" "primary" {
+   name = "${var.domain}"
+}
+
+resource "aws_route53_record" "lb" {
+   zone_id = "${aws_route53_zone.primary.zone_id}"
+   name = "${var.lburl}"
+   type = "A"
+   ttl = "300"
+   records = ["${openstack_compute_floatingip_v2.pm_float.address}"]
 }

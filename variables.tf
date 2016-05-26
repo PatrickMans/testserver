@@ -20,6 +20,21 @@ variable "ssh_key_file" {
     default = "~/.ssh/id_rsa.terraform"
 }
 
+# AWS credentials
+variable "aws_credentials_file" {
+   default = "/Users/patrick/.aws/credentials"
+}
+
+# URL for load balancer
+variable "lburl" {
+    default = "www.plgtest.dirict.cloud.pgomersbach.net"
+}
+
+# Domain name
+variable "domain" {
+    default = "plgtest.dirict.cloud.pgomersbach.net"
+}
+
 ############### adjust as needed ###############
 variable "db_vol_gb" {
     default = 10
